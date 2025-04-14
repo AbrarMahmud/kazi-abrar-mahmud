@@ -1,14 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // ✅ Change here
 import Portfolio from './pages/Portfolio';
 import BlogPost from './components/BlogPost';
 import { portfolio } from './config/portfolio';
-import ScrollToTop from './components/ScrollToTop'; // ✅ Add this import
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
-      <ScrollToTop /> {/* ✅ Add this line */}
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Portfolio />} />
         {portfolio.blogs.map(blog => (

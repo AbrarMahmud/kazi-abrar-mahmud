@@ -2,8 +2,8 @@ export const portfolio = {
   name: "Kazi Abrar Mahmud",
   title: "Robotics Research Scientist",
   bio: "Leading researcher in autonomous robotics and machine learning with a focus on human-robot interaction. Published extensively in top-tier robotics journals and conferences including ICRA, RSS, and IEEE Robotics and Automation Letters.",
-  avatar: "/profile_imgs/IMG_2.jpeg",
-  cv: "/CV/CV_Kazi_Abrar_Mahmud.pdf",
+  avatar: `${import.meta.env.BASE_URL}profile_imgs/IMG_1.jpeg`,
+  cv: `${import.meta.env.BASE_URL}CV/CV_Kazi_Abrar_Mahmud.pdf`,
   experience: [
     {
       title: "Senior Robotics Researcher",
