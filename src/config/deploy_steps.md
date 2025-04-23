@@ -84,6 +84,13 @@ jobs:
 ```bash
 git add .
 git commit -m "Add GitHub Pages deployment"
+git pull --rebase
 git push
 
+```
+# For local Deployment and Development
+```bash
+npm install vite --save-dev
+npx vite build
+npm run dev  
 ```
