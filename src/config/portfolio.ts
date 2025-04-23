@@ -1,326 +1,197 @@
 export const portfolio = {
   name: "Kazi Abrar Mahmud",
-  title: "Robotics Research Scientist",
-  bio: "Leading researcher in autonomous robotics and machine learning with a focus on human-robot interaction. Published extensively in top-tier robotics journals and conferences including ICRA, RSS, and IEEE Robotics and Automation Letters.",
+  title: "Robotics • Ai/ML • Singnal Processing",
+  bio: "I'm an EEE graduate with a strong focus on advanced robotics and the integration of state-of-the-art AI/ML algorithms into real robotic hardware. My research aims to bridge the gap between intelligent algorithms and real-world applications. Currently, I'm exploring funded PhD opportunities to further pursue this path and contribute to the advancement of autonomous systems.",
   avatar: "profile_imgs/IMG_1.jpeg",
   cv: `${import.meta.env.BASE_URL}CV/CV_Kazi_Abrar_Mahmud.pdf`,
   experience: [
     {
-      title: "Senior Robotics Researcher",
-      company: "MIT Robotics Lab",
-      period: "2020 - Present",
-      description: "Leading research in adaptive robot control and human-robot interaction. Managing a team of 5 PhD students and collaborating with industry partners.",
+      title: "Industrial Attachment",
+      company: "Bangladesh Data Center Company Limited (BDCCL)",
+      period: "June 2024 - July 2024",
+      description: "​BDCCL operates Bangladesh's Tier IV-certified National Data Center, offering 99.995% uptime, advanced cloud services, and robust security infrastructure.",
       achievements: [
-        "Published 12 papers in top-tier conferences",
-        "Secured $2M in research funding",
-        "Developed novel control algorithms deployed in industrial settings"
+        "Gained hands-on experience by touring a highly secure 4th-tier data center",
+        "Observed and learned about advanced data center infrastructure, security protocols, and operational standards."
       ]
     },
-    {
-      title: "Robotics Engineer",
-      company: "Boston Dynamics",
-      period: "2018 - 2020",
-      description: "Developed motion planning algorithms for quadruped robots. Led the perception team for autonomous navigation.",
-      achievements: [
-        "Improved robot stability by 40%",
-        "Filed 3 patents",
-        "Reduced computation time by 60%"
-      ]
-    },
-    {
-      title: "Research Assistant",
-      company: "Stanford Robotics Lab",
-      period: "2015 - 2018",
-      description: "Conducted research in robot learning and manipulation. Developed novel reinforcement learning algorithms.",
-      achievements: [
-        "Published 6 conference papers",
-        "Best Paper Award at ICRA 2017",
-        "Open-sourced learning framework"
-      ]
-    }
+    // {
+    //   title: "Robotics Engineer",
+    //   company: "Boston Dynamics",
+    //   period: "2018 - 2020",
+    //   description: "Developed motion planning algorithms for quadruped robots. Led the perception team for autonomous navigation.",
+    //   achievements: [
+    //     "Improved robot stability by 40%",
+    //     "Filed 3 patents",
+    //     "Reduced computation time by 60%"
+    //   ]
+    // },
+    // {
+    //   title: "Research Assistant",
+    //   company: "Stanford Robotics Lab",
+    //   period: "2015 - 2018",
+    //   description: "Conducted research in robot learning and manipulation. Developed novel reinforcement learning algorithms.",
+    //   achievements: [
+    //     "Published 6 conference papers",
+    //     "Best Paper Award at ICRA 2017",
+    //     "Open-sourced learning framework"
+    //   ]
+    // }
   ],
   skills: [
     "Robotic Systems",
     "Computer Vision",
     "Machine Learning",
-    "ROS/ROS2",
+    "ROS",
     "PyTorch",
     "C++",
+    "3D CAD",
     "SLAM",
     "Motion Planning",
-    "Control Systems",
-    "Sensor Fusion"
+    "Control Systems"
   ],
   blogs: [
     {
-      id: "adaptive-control-explained",
-      title: "Understanding Adaptive Robot Control",
-      thumbnail: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop",
-      videoUrl: "https://www.youtube.com/embed/EXAMPLE1",
+      id: "2",
+      title: "Advance ev3 robotic arm",
+      thumbnail: "ytube_thumbnails/Advance_ev3_robotic_arm.png",
+      videoUrl: "https://www.youtube.com/embed/ypaqZYPvJ34",
       date: "2024-03-15",
-      summary: "A deep dive into adaptive control algorithms for robotic systems",
+      summary: "This is a factory grade robotic arm,Using mindstorm as base kit .The whole robot is programmed to sort different coloured bricks",
       content: `
-# Understanding Adaptive Robot Control
+This project demonstrates a robotic arm built entirely using components from the LEGO EV3 base set. The design leverages the mechanical flexibility of LEGO Technic parts and is powered by the EV3 Intelligent Brick.
 
-In today's video, I walk you through the fascinating world of adaptive control in robotics and how it enables robots to handle uncertain environments. This technology is revolutionizing how robots interact with dynamic environments and adapt to changing conditions in real-time.
+## Features
 
-## What is Adaptive Control?
+- **Fully Functional Robotic Arm**: Built exclusively using the EV3 base kit without additional parts.
+- **Custom Mechanical Design**: Utilized gears, beams, and motors to create a stable and functional structure.
+- **EV3 Programming**: The robotic arm is programmed using the official EV3 graphical programming language, allowing for intuitive control of movement and logic.
 
-Adaptive control is a sophisticated approach that allows robots to:
-- Automatically adjust their behavior based on changing conditions
-- Learn from their interactions with the environment
-- Maintain stability even when faced with uncertainties
+## Highlights
 
-## Key Components Covered
+- **Creative Engineering**: Maximized the use of base kit components to build a fully operational robot.
+- **Educational Focus**: Showcases how robotics, mechanics, and programming can be integrated into a hands-on learning experience.
+- **Interactive Demo**: Includes various motion sequences to demonstrate pick-and-place capability and arm articulation.
 
-### 1. System Identification
-- Real-time parameter estimation
-- Dynamic model updates
-- Sensor fusion techniques
+## Technologies Used
 
-### 2. Control Architecture
-- Adaptive gain scheduling
-- Model reference adaptive control (MRAC)
-- Self-tuning regulators
+- LEGO Mindstorms EV3
+- EV3 Programming Environment
 
-### 3. Implementation Challenges
-- Stability guarantees
-- Computational efficiency
-- Robustness considerations
-
-## Practical Examples
-
-In the video, we demonstrate several real-world applications:
-1. **Industrial Manipulation**
-   - Handling objects of varying weights
-   - Adapting to different surface properties
-   - Real-time force control adjustments
-
-2. **Mobile Robot Navigation**
-   - Terrain adaptation
-   - Dynamic obstacle avoidance
-   - Energy optimization
-
-## Code Implementation
-
-We walk through a Python implementation of a basic adaptive controller:
-
-\`\`\`python
-class AdaptiveController:
-    def __init__(self, learning_rate=0.1):
-        self.params = np.zeros(3)
-        self.lr = learning_rate
-
-    def update(self, error, state):
-        self.params += self.lr * error * state
-        return self.params @ state
-\`\`\`
-
-## Future Directions
-
-The field of adaptive control continues to evolve with:
-- Integration with deep learning
-- Multi-robot adaptive systems
-- Human-in-the-loop adaptation
-
-## Resources
-
-For those interested in learning more:
-- [Adaptive Control Textbook](https://example.com)
-- [Research Papers](https://example.com)
-- [GitHub Repository](https://example.com)
-
-## Next Steps
-
-In our next video, we'll dive deeper into implementing these concepts on a real robotic system. Stay tuned!
+This project highlights the power of creativity and engineering, showing how even basic kits can be used to build complex robotic systems.
       `
     },
     {
-      id: "slam-tutorial",
-      title: "SLAM Tutorial: Building Maps with Robots",
-      thumbnail: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800&h=600&fit=crop",
-      videoUrl: "https://www.youtube.com/embed/EXAMPLE2",
+      id: "1",
+      title: "Ev3 Grab and Lift Bot",
+      thumbnail: "ytube_thumbnails/Ev3_grab_and_lift_bot.png",
+      videoUrl: "https://www.youtube.com/embed/ep-ILe__7Mk",
       date: "2024-03-01",
-      summary: "Learn how robots build maps and navigate using SLAM",
+      summary: "A versatile EV3 robot using one motor for gripping and lifting, combined with PID line following for smooth autonomous navigation.",
       content: `
-# SLAM Tutorial: Building Maps with Robots
+This project demonstrates a LEGO EV3 robot built entirely using components from the base EV3 kit. The robot is designed to grab specific objects and lift them into a storage unit, all using a single motor mechanism. It integrates a PID-based line following algorithm for smooth and accurate navigation.
 
-Welcome to this comprehensive tutorial on Simultaneous Localization and Mapping (SLAM). In this video, we break down the complex topic of SLAM into digestible components and show you how to implement a basic SLAM system.
+## Features
 
-## Understanding SLAM
+- **Single Motor Mechanism**: Ingeniously uses one motor to perform two different actions — grabbing an object and lifting it into storage.
+- **Object Handling**: Capable of identifying, grabbing, and storing items autonomously.
+- **PID Line Following**: Employs a PID control algorithm to ensure smooth and stable line following for path navigation.
+- **Compact Design**: Constructed using only the LEGO Technic parts available in the standard EV3 base kit.
+- **EV3 Programming**: Programmed using the official LEGO EV3 graphical programming environment.
 
-SLAM is a crucial technology that allows robots to:
-- Build maps of unknown environments
-- Track their position within these maps
-- Navigate autonomously
+## Technical Highlights
 
-## Key Concepts Covered
+- **Mechanical Linkage**: A smart mechanical design allows a single EV3 motor to handle both grabbing and lifting, maximizing functionality with minimal hardware.
+- **Control System**: PID (Proportional-Integral-Derivative) control ensures responsive and smooth path tracking.
+- **Programming Logic**: Custom logic blocks manage object detection, movement control, and storage operations.
 
-### 1. Feature Detection
-- Corner detection algorithms
-- Feature descriptors
-- Matching techniques
+## Applications
 
-### 2. Loop Closure
-- Place recognition
-- Graph optimization
-- Error correction
+This robot serves as a great example of resource-efficient design in educational robotics. It can be used for demonstrations, STEM learning, or as a prototype for more complex automation projects.
 
-### 3. Mapping
-- Occupancy grid maps
-- Landmark-based maps
-- 3D point clouds
+## Future Enhancements
 
-## Implementation Steps
+- Add object detection sensors.
+- Introduce multiple storage units.
+- Integrate more motors for advanced articulation.
 
-We walk through a complete implementation using Python:
+## Conclusion
 
-### Step 1: Feature Extraction
-\`\`\`python
-def extract_features(image):
-    orb = cv2.ORB_create()
-    keypoints, descriptors = orb.detectAndCompute(image, None)
-    return keypoints, descriptors
-\`\`\`
-
-### Step 2: Feature Matching
-\`\`\`python
-def match_features(desc1, desc2):
-    matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-    matches = matcher.match(desc1, desc2)
-    return sorted(matches, key=lambda x: x.distance)
-\`\`\`
-
-### Step 3: Motion Estimation
-\`\`\`python
-def estimate_motion(matches, kp1, kp2):
-    pts1 = np.float32([kp1[m.queryIdx].pt for m in matches])
-    pts2 = np.float32([kp2[m.trainIdx].pt for m in matches])
-    F, mask = cv2.findFundamentalMat(pts1, pts2, cv2.RANSAC)
-    return F, mask
-\`\`\`
-
-## Practical Tips
-
-1. **Parameter Tuning**
-   - Feature detector thresholds
-   - Matching distance criteria
-   - RANSAC parameters
-
-2. **Performance Optimization**
-   - Keyframe selection
-   - Local mapping
-   - Bundle adjustment
-
-3. **Error Handling**
-   - Outlier rejection
-   - Loop closure verification
-   - Scale drift correction
-
-## Common Challenges
-
-We address several common challenges:
-- Scale ambiguity
-- Loop closure detection
-- Real-time performance
-- Dynamic environments
-
-## Next Steps
-
-To continue learning:
-1. Download the sample code
-2. Try with your own dataset
-3. Experiment with different parameters
-4. Join our community
-
-## Resources
-
-- [Complete Code Repository](https://example.com)
-- [Dataset Collection](https://example.com)
-- [Research Papers](https://example.com)
-
-Stay tuned for our next tutorial where we'll implement advanced SLAM techniques!
+This LEGO EV3 project highlights creative problem solving and engineering by achieving complex motion and navigation using just a single motor and basic components. It’s an ideal showcase for educational use and a great platform for learning about robotics and control systems.
       `
     }
   ],
   projects: [
     {
-      title: "Adaptive Robot Control",
-      description: "Developed novel adaptive control algorithms for robotic manipulation in uncertain environments. Implemented real-time learning mechanisms for dynamic adaptation to changing conditions.",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop",
-      technologies: ["ROS2", "PyTorch", "C++"],
-      achievements: ["40% improvement in task success rate", "Published in ICRA 2023", "Open-sourced on GitHub"],
-      link: "#"
+      title: "Fire-Bot: FOMO-vision model based autonomous robot for fire detection and suppression",
+      description: "Fire-Bot is an autonomous firefighting robot that uses real-time image processing, stereoscopic cameras, and machine learning for fire detection. It features PID-controlled motion and IMU-based feedback for precise navigation, all powered by a low-power microcontroller, integrating robotics, control systems, and AI into a unified solution.",
+      image: "projec_imgs/Ai_FireBot.jpeg",
+      technologies: ["Computer Vision", "edge-impulse", "control-systems" , "esp32-arduino"],
+      achievements: ["Vision Models on Embedded Systems", "Stereoscopic Distance Estimation","Open-sourced on GitHub"],
+      link: "https://github.com/AbrarMahmud/Ai_FireBot"
     },
     {
-      title: "Vision-Based Navigation",
-      description: "Implemented real-time SLAM system for autonomous navigation in dynamic environments. Developed novel algorithms for obstacle avoidance and path planning.",
-      image: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800&h=600&fit=crop",
-      technologies: ["Computer Vision", "CUDA", "Python"],
-      achievements: ["30Hz update rate on embedded hardware", "Deployed in 3 industrial robots", "2 patent applications"],
-      link: "#"
+      title: "Robotic Arm Manipulator Visualizer using Processing3",
+      description: "A powerful tool for visualizing and comparing the solutions of robotic arm inverse kinematics (IK) using Processing3. This project allows users to input a Denavit-Hartenberg (DH) matrix table and visualize the solution path of the manipulator according to a given parametric path function. It also supports real-time Arduino integration.",
+      image: "projec_imgs/6_DOF_arm.gif",
+      technologies: ["arduino", "inverse kinematics", "processing3"],
+      achievements: ["robotic kinematics and DH parameters", "Deployed in practical robots"],
+      link: "https://github.com/AbrarMahmud/N_DOF_simulation"
     },
     {
-      title: "Human-Robot Collaboration",
-      description: "Created predictive models for safe and efficient human-robot interaction in shared workspaces. Implemented real-time trajectory optimization.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop",
-      technologies: ["PyTorch", "ROS", "Motion Planning"],
-      achievements: ["50% reduction in task completion time", "Featured in MIT Tech Review", "Industry collaboration"],
-      link: "#"
+      title: "WiFi-RoverCam: ESP32-CAM Controlled RC Vehicle Over Local WiFi",
+      description: "This project demonstrates a standalone WiFi-based RC vehicle system using the ESP32-CAM module. It serves a custom HTML-based camera interface over a local HTTP server without requiring internet access. The vehicle is controlled via a custom web page, and the control signals are relayed wirelessly to an Arduino Uno handling motor control.",
+      image: "projec_imgs/esp32_car.gif",
+      technologies: ["html-css-javascript", "huffman-compression-algorithm", "esp32-arduino"],
+      achievements: ["Doesn't require active internet", "Doesn't require dedicated app/apk", "ESP32-CAM serves as a standalone HTTP server"],
+      link: "https://github.com/AbrarMahmud/esp_cam_car"
+    },
+    {
+      title: "Bluetooth-Controlled Paper Chassis Vehicle",
+      description: "This project demonstrates a low-cost Bluetooth-controlled vehicle built using an A4-sized single cut paper chassis template. The goal is to provide a simple and accessible hands-on electronics project that introduces core Arduino and motor control concepts, especially for beginners or students.",
+      image: "projec_imgs/blutooth_car.jpeg",
+      technologies: ["CAD", "embedded sysytem"],
+      achievements: ["Custom Chassis from A4 Hard Paper", "Open-Source Design"],
+      link: "https://github.com/AbrarMahmud/Bluetooth_Vehicle"
     }
   ],
   research: [
     {
-      title: "Learning-based Adaptive Control for Robotic Manipulation",
-      journal: "IEEE Transactions on Robotics",
-      year: 2023,
-      abstract: "This paper presents a novel approach to robotic manipulation combining deep reinforcement learning with adaptive control. We introduce a hybrid architecture that leverages the generalization capabilities of deep learning while maintaining the robustness guarantees of classical control theory. Our method demonstrates significant improvements in task success rates across various manipulation scenarios, particularly in environments with uncertain dynamics and changing conditions. The system achieves real-time performance and has been validated on multiple robotic platforms.",
-      description: "Novel approach combining reinforcement learning with adaptive control for robust manipulation in uncertain environments. Demonstrated 40% improvement in task success rate.",
+      title: "Towards Empathetic Voice Assistants :Enhancing Long-Term Conversations with Small Language Models, Semantic Routing, and Emotion-Aware Speech Recognition.Learning-based Adaptive Control for Robotic Manipulation",
+      journal: "Undergraduate Thesis",
+      year: 2025,
+      abstract: "This thesis introduces a sentiment-aware conversational AI system that enhances voice assistant interactions through emotional intelligence. Central to the architecture is Whisper-E, an advanced ASR model integrating emotion recognition via a novel E-tokenizer, enabling real-time sentiment tagging alongside accurate transcription. A fine-tuned Small Language Model, guided by a semantic router and dynamic prompts, generates emotionally aligned responses in long-term dialogues. The system leverages a custom data pipeline for emotion-tagged speech synthesis, addressing dataset limitations. Evaluations reveal improved coherence, empathy, and relevance over baselines. This scalable solution fosters emotionally intelligent AI, with applications in mental health, companionship, and customer service, promoting compassionate digital interactions.",
+      description: "Utilized a fine-tuned Small Language Model (SLM) with semantic routing to enable long-term conversations while reducing inference time. Developed a custom Emotion-Aware Speech Recognition model to enhance the context of SLM.",
       link: "#",
-      citations: 45
+      additional_info: "Supervisor : Dr. Mohammad Ariful Haque"
     },
     {
-      title: "Real-time Visual SLAM for Dynamic Environments",
-      journal: "International Conference on Robotics and Automation (ICRA)",
-      year: 2022,
-      abstract: "We present a robust visual SLAM system designed specifically for dynamic environments. Our approach introduces a novel method for detecting and tracking moving objects while maintaining accurate camera localization and mapping. The system employs a multi-threaded architecture that achieves real-time performance on embedded hardware. Extensive experiments demonstrate the system's effectiveness in challenging scenarios including crowded indoor environments and dynamic outdoor scenes. The results show significant improvements over existing methods in terms of accuracy and computational efficiency.",
-      description: "Innovative SLAM system capable of handling dynamic obstacles and changing environments. Achieved 30Hz update rate on embedded hardware.",
+      title: " University Helping Robot .A LLM based multi-agent robotic system.",
+      journal: "Funded Research",
+      year: "In Progress",
+      abstract: "Work In progress",
+      description: "Currently working as the ROS developer ,integrating LLM agents with robot’s low level hardware, with the ultimate goal of giving full control to the LLM agent.",
       link: "#",
-      citations: 78
-    },
-        {
-      title: "Learning-based Adaptive Control for Robotic Manipulation",
-      journal: "IEEE Transactions on Robotics",
-      year: 2023,
-      abstract: "This paper presents a novel approach to robotic manipulation combining deep reinforcement learning with adaptive control. We introduce a hybrid architecture that leverages the generalization capabilities of deep learning while maintaining the robustness guarantees of classical control theory. Our method demonstrates significant improvements in task success rates across various manipulation scenarios, particularly in environments with uncertain dynamics and changing conditions. The system achieves real-time performance and has been validated on multiple robotic platforms.",
-      description: "Novel approach combining reinforcement learning with adaptive control for robust manipulation in uncertain environments. Demonstrated 40% improvement in task success rate.",
-      link: "#",
-      citations: 45
-    },
-        {
-      title: "Learning-based Adaptive Control for Robotic Manipulation",
-      journal: "IEEE Transactions on Robotics",
-      year: 2023,
-      abstract: "This paper presents a novel approach to robotic manipulation combining deep reinforcement learning with adaptive control. We introduce a hybrid architecture that leverages the generalization capabilities of deep learning while maintaining the robustness guarantees of classical control theory. Our method demonstrates significant improvements in task success rates across various manipulation scenarios, particularly in environments with uncertain dynamics and changing conditions. The system achieves real-time performance and has been validated on multiple robotic platforms.",
-      description: "Novel approach combining reinforcement learning with adaptive control for robust manipulation in uncertain environments. Demonstrated 40% improvement in task success rate.",
-      link: "#",
-      citations: 45
-    },
-        {
-      title: "Learning-based Adaptive Control for Robotic Manipulation",
-      journal: "IEEE Transactions on Robotics",
-      year: 2023,
-      abstract: "This paper presents a novel approach to robotic manipulation combining deep reinforcement learning with adaptive control. We introduce a hybrid architecture that leverages the generalization capabilities of deep learning while maintaining the robustness guarantees of classical control theory. Our method demonstrates significant improvements in task success rates across various manipulation scenarios, particularly in environments with uncertain dynamics and changing conditions. The system achieves real-time performance and has been validated on multiple robotic platforms.",
-      description: "Novel approach combining reinforcement learning with adaptive control for robust manipulation in uncertain environments. Demonstrated 40% improvement in task success rate.",
-      link: "#",
-      citations: 45
+      additional_info: "Supervisor : Dr. Mohammad Ariful Haque"
     }
   ],
   social: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    youtube: "https://youtube.com",
-    email: "sarah.chen@robotics.edu",
-    googleScholar: "https://scholar.google.com"
-  }
+    github: "https://github.com/AbrarMahmud",
+    linkedin: "www.linkedin.com/in/kazi-abrar-mahmud",
+    youtube: "https://www.youtube.com/@abrarmahmud8652",
+    email: "abrar.mahmud790011@gmail.com",
+    googleScholar: "https://scholar.google.com/citations?hl=en&user=NixBC9MAAAAJ"
+  },
+  articles: [
+    {
+      title: "We Made a Robot That Plays Chess With Us — Here’s How",
+      journal: "Medium",
+      year: 2024,
+      abstract: "ChessBot is an intelligent robotic system designed to autonomously play chess by integrating mechanical design, computer vision, and artificial intelligence. The system features a 5-DoF robotic arm modeled in Autodesk Fusion 360 and simulated using PyBullet for motion planning. A vision system processes real-time images of the chessboard, utilizing CNNs to classify piece positions and detect human moves. These inputs are analyzed by the Stockfish engine to compute optimal responses, which are then executed by the robotic arm. ChessBot demonstrates the seamless fusion of robotics and AI, offering an innovative approach to human-robot interaction through a strategic board game.",
+      description: "ChessBot is an AI-powered robotic system that plays chess autonomously using a 5-DoF robotic arm, computer vision for move detection, and the Stockfish engine for strategy, showcasing real-time integration of robotics, machine learning, and intelligent decision-making.",
+      link: "https://medium.com/@shadidyousuf14/chessbot-an-intelligent-robotic-system-for-playing-chess-d7ca3e93752a",
+      //citations: 0
+    }
+    // Add more articles as needed
+  ]
 };

@@ -9,11 +9,16 @@ const INITIAL_RESEARCH_COUNT = 3;
 const INITIAL_PROJECT_COUNT = 4;
 const INITIAL_VIDEO_COUNT = 3;
 
+const INITIAL_ARTICLES_COUNT = 3;
+
 function Portfolio() {
   const navigate = useNavigate();
   const [showAllResearch, setShowAllResearch] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllVideos, setShowAllVideos] = useState(false);
+
+  // {/* My additiont */}
+  const [showAllArticles, setShowAllArticles] = useState(false);
   
   const handleDownloadCV = () => {
     window.open(portfolio.cv, "_blank");
@@ -22,10 +27,16 @@ function Portfolio() {
   const displayedResearch = showAllResearch ? portfolio.research : portfolio.research.slice(0, INITIAL_RESEARCH_COUNT);
   const displayedProjects = showAllProjects ? portfolio.projects : portfolio.projects.slice(0, INITIAL_PROJECT_COUNT);
   const displayedVideos = showAllVideos ? portfolio.blogs : portfolio.blogs.slice(0, INITIAL_VIDEO_COUNT);
+  // {/* My additiont */}
+  const displayedArticles = showAllArticles ? portfolio.articles : portfolio.articles.slice(0, INITIAL_ARTICLES_COUNT);
+
 
   const hasMoreResearch = portfolio.research.length > INITIAL_RESEARCH_COUNT;
   const hasMoreProjects = portfolio.projects.length > INITIAL_PROJECT_COUNT;
   const hasMoreVideos = portfolio.blogs.length > INITIAL_VIDEO_COUNT;
+  
+  // {/* My additiont */}
+  const hasMoreArticles = portfolio.articles.length > INITIAL_ARTICLES_COUNT;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white relative overflow-hidden pt-16">
@@ -70,30 +81,7 @@ function Portfolio() {
           </div>
         </GlassCard>
 
-        {/* Experience Section */}
-        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '50ms' }}>
-          <div className="flex items-center gap-2 mb-6">
-            <Briefcase className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Experience</h2>
-          </div>
-          <div className="space-y-8">
-            {portfolio.experience.map((exp) => (
-              <div key={exp.title} className="relative pl-8 border-l-2 border-gray-200">
-                <div className="absolute w-4 h-4 bg-white border-2 border-gray-400 rounded-full -left-[9px] top-0"></div>
-                <div className="mb-1">
-                  <h3 className="text-xl font-semibold text-gray-800">{exp.title}</h3>
-                  <p className="text-gray-600">{exp.company} • {exp.period}</p>
-                </div>
-                <p className="text-gray-600 mb-4">{exp.description}</p>
-                <ul className="list-disc list-inside text-gray-600">
-                  {exp.achievements.map((achievement) => (
-                    <li key={achievement}>{achievement}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </GlassCard>
+
 
         {/* Skills Section */}
         <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '100ms' }}>
@@ -124,25 +112,27 @@ function Portfolio() {
             {displayedResearch.map((paper) => (
               <div 
                 key={paper.title} 
-                className="group relative"
+                // className="group relative"
+                className="group relative cursor-pointer"
+                onClick={() => window.open(paper.link, "_blank")}
               >
                 <div className="p-4 rounded-lg transition-all duration-500 group-hover:opacity-0">
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">{paper.title}</h3>
-                    <a 
+                    {/* <a 
                       href={paper.link}
                       className="text-indigo-600 hover:text-indigo-500 transition-colors flex items-center gap-1"
                     >
                       View Paper
                       <ArrowUpRight size={16} />
-                    </a>
+                    </a> */}
                   </div>
                   <div className="flex items-center gap-2 text-gray-600 mb-2">
                     <span>{paper.journal}</span>
                     <span>•</span>
                     <span>{paper.year}</span>
                     <span>•</span>
-                    <span>{paper.citations} citations</span>
+                    <span>{paper.additional_info}</span>
                   </div>
                   <p className="text-gray-600">{paper.description}</p>
                 </div>
@@ -173,6 +163,87 @@ function Portfolio() {
             </div>
           )}
         </GlassCard>
+
+        {/* Experience Section */}
+        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '50ms' }}>
+          <div className="flex items-center gap-2 mb-6">
+            <Briefcase className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">Experience</h2>
+          </div>
+          <div className="space-y-8">
+            {portfolio.experience.map((exp) => (
+              <div key={exp.title} className="relative pl-8 border-l-2 border-gray-200">
+                <div className="absolute w-4 h-4 bg-white border-2 border-gray-400 rounded-full -left-[9px] top-0"></div>
+                <div className="mb-1">
+                  <h3 className="text-xl font-semibold text-gray-800">{exp.title}</h3>
+                  <p className="text-gray-600">{exp.company} • {exp.period}</p>
+                </div>
+                <p className="text-gray-600 mb-4">{exp.description}</p>
+                <ul className="list-disc list-inside text-gray-600">
+                  {exp.achievements.map((achievement) => (
+                    <li key={achievement}>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+        {/* My additiont */}
+        {/* Article Section (Such as medium and instructible)*/}
+        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow">
+          <div className="flex items-center gap-2 mb-6">
+            <Flask className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">Articles</h2>
+          </div>
+          <div className="space-y-6">
+            {displayedArticles.map((article) => (
+              // ... content structure
+              // <<<<<<<<<<<<<< I HAVE  To Design it (For now just copy Research)
+              <div 
+              key={article.title} 
+              // className="group relative"
+              className="group relative cursor-pointer"
+              onClick={() => window.open(article.link, "_blank")}
+            >
+              <div className="p-4 rounded-lg transition-all duration-500 group-hover:opacity-0">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{article.title}</h3>
+                  {/* <a 
+                    href={article.link}
+                    className="text-indigo-600 hover:text-indigo-500 transition-colors flex items-center gap-1"
+                  >
+                    View Paper
+                    <ArrowUpRight size={16} />
+                  </a> */}
+                </div>
+                <div className="flex items-center gap-2 text-gray-600 mb-2">
+                  <span>{article.journal}</span>
+                  <span>•</span>
+                  <span>{article.year}</span>
+                  {/* <span>•</span>
+                  <span>{article.citations} citations</span> */}
+                </div>
+                <p className="text-gray-600">{article.description}</p>
+              </div>
+              <div className="absolute inset-0 bg-black/5 backdrop-blur-md rounded-lg p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 min-h-fit">
+                <p className="text-gray-700 whitespace-pre-wrap">{article.abstract}</p>
+              </div>
+            </div>
+            ))}
+          </div>
+          {hasMoreArticles && (
+            <div className="mt-8 flex justify-center gap-4">
+              <button
+                onClick={() => setShowAllArticles(!showAllArticles)}
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                {showAllArticles ? 'Show Less' : 'Show More'}
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
+          )}
+        </GlassCard>
+
 
         {/* Blog Section */}
         <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
@@ -340,9 +411,9 @@ function Portfolio() {
                 please contact me at:
               </p>
               <div className="bg-black/5 backdrop-blur-sm rounded-lg p-4">
-                <p className="text-gray-700">MIT Robotics Laboratory</p>
-                <p className="text-gray-700">77 Massachusetts Avenue</p>
-                <p className="text-gray-700">Cambridge, MA 02139</p>
+                <p className="text-gray-700">Electrical and Computer Engineering Building</p>
+                <p className="text-gray-700"> West Palashi, BUET, Dhaka-1205</p>
+                {/* <p className="text-gray-700">Cambridge, MA 02139</p> */}
               </div>
             </div>
           </div>
