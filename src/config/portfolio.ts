@@ -6,6 +6,17 @@ export const portfolio = {
   cv: `${import.meta.env.BASE_URL}CV/CV_Kazi_Abrar_Mahmud.pdf`,
   experience: [
     {
+    title: "Lecturer",
+    company: "United International University (UIU)",
+    period: "July 2025 - Present",
+    description: "Serving as a faculty member in the Department of Electrical and Electronic Engineering (EEE), delivering undergraduate coursework, leading student activities, and coordinating academic initiatives.",
+    achievements: [
+      "Deliver engaging theoretical and hands-on lectures to undergraduate students.",
+      "Serve as Moderator of the Electrical and Electronic Club, overseeing activities, projects, and student engagement.",
+      "Coordinated the launch of Power Energy Training Academy (PETA) training programs focused on Industry 4.0 technologies."
+    ]
+  },
+    {
       title: "Industrial Attachment",
       company: "Bangladesh Data Center Company Limited (BDCCL)",
       period: "June 2024 - July 2024",
@@ -39,10 +50,11 @@ export const portfolio = {
     // }
   ],
   skills: [
+    "ROS",
+    "Imitation Learning",
     "Robotic Systems",
     "Computer Vision",
     "Machine Learning",
-    "ROS",
     "PyTorch",
     "C++",
     "3D CAD",
@@ -50,8 +62,52 @@ export const portfolio = {
     "Motion Planning",
     "Control Systems"
   ],
+
+  
   blogs: [
-    {
+    { 
+      id: "3",
+      title: "Diffusion Policy Done Right: End-to-End Imitation Learning in ROS1-Gazebo",
+      thumbnail: "https://img.youtube.com/vi/iT2fyZKa5s8/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/iT2fyZKa5s8?si=J4sspQdzq-6nEKUq",
+      date: "2026-06-21",
+      summary: "Teaching Robots by Example: Inside the Imitation Learning in Gazebo Repo",
+      content: `
+Writing rules for autonomous robots is notoriously difficult. If you’ve ever tried to hard-code navigation logic for dynamic environments, you know it’s a never-ending battle of edge cases. But what if, instead of writing endless \`if-else\` statements, you could just *show* the robot how to drive? 
+
+That is the core premise of Imitation Learning, and it is exactly what the [imitation-learning-gazebo](https://github.com/AbrarMahmud/imitation-learning-gazebo) repository by Abrar Mahmud brings to life. 
+
+This project provides a hands-on, end-to-end pipeline for teaching a simulated robot how to navigate using **Behavioral Cloning** a branch of Imitation Learning where a neural network learns to map sensor inputs directly to control actions based on expert demonstrations.
+
+Here is a breakdown of what makes this repository a great starting point for robotics and AI enthusiasts.
+
+## The Core Workflow
+
+The repository bridges the gap between the **Gazebo simulator** (the gold standard for open-source robotics physics) and deep learning frameworks. It breaks the autonomous robotics problem into three highly digestible phases:
+
+1. **Expert Demonstration (Data Collection):** 
+   You step into the shoes of the "expert." Using teleoperation, you drive the robot through a simulated Gazebo environment. As you navigate, the system pairs the robot's camera feed (what it sees) with your control commands (steering, acceleration, and braking). This creates a paired dataset of images and optimal actions.
+   
+2. **Model Training:** 
+   Once the dataset is collected, a Convolutional Neural Network (CNN) is trained to understand the relationship between the visual input and the physical output. The network essentially learns your driving style, recognizing that when a wall approaches on the right, the correct action is to steer left.
+
+3. **Autonomous Deployment:** 
+   The training wheels come off. The trained model is plugged back into the ROS (Robot Operating System) and Gazebo loop. The robot uses its onboard camera to feed live images to the neural network, which then outputs real-time velocity and steering commands to navigate the track autonomously.
+
+## Why This Repository Stands Out
+
+* **End-to-End Pipeline:** It doesn't just give you a model or a simulation; it provides the glue that holds them together. Moving data from a ROS/Gazebo environment into a PyTorch or TensorFlow training script is often the hardest part for beginners, and this repo handles that infrastructure.
+* **Accessible Simulation:** Hardware is expensive and prone to breaking. By keeping the entire pipeline inside Gazebo, developers can iterate rapidly, crash as many virtual robots as they need, and experiment with different camera angles or track layouts without spending a dime.
+* **A Sandbox for Advanced Algorithms:** While Behavioral Cloning is a fantastic start, the architecture of this repo makes it a perfect launchpad for more complex algorithms like DAgger (Dataset Aggregation) or Reinforcement Learning. 
+
+## Who Is This For?
+
+If you are a student transitioning from standard machine learning into applied robotics, or a hobbyist looking to understand how self-driving cars work under the hood, this repository is a fantastic sandbox. It abstracts away just enough of the ROS boilerplate to let you focus on the machine learning, while keeping you grounded in realistic robotic constraints.
+
+Head over to the [GitHub repository](https://github.com/AbrarMahmud/imitation-learning-gazebo) to clone the code, spin up the Gazebo world, and start teaching your virtual robot how to drive.
+    `
+    },
+    { 
       id: "2",
       title: "Advance ev3 robotic arm",
       thumbnail: "ytube_thumbnails/Advance_ev3_robotic_arm.png",
@@ -123,14 +179,30 @@ This LEGO EV3 project highlights creative problem solving and engineering by ach
   ],
   projects: [
     {
-      title: "Fire-Bot: FOMO-vision model based autonomous robot for fire detection and suppression",
-      description: "Fire-Bot is an autonomous firefighting robot that uses real-time image processing, stereoscopic cameras, and machine learning for fire detection. It features PID-controlled motion and IMU-based feedback for precise navigation, all powered by a low-power microcontroller, integrating robotics, control systems, and AI into a unified solution.",
-      image: "projec_imgs/Ai_FireBot.jpeg",
-      technologies: ["Computer Vision", "edge-impulse", "control-systems" , "esp32-arduino"],
-      achievements: ["Vision Models on Embedded Systems", "Stereoscopic Distance Estimation","Open-sourced on GitHub"],
-      link: "https://github.com/AbrarMahmud/Ai_FireBot"
-    },
-    {
+    title: "End-to-End Imitation Learning in ROS1-Gazebo",
+    description: "An end-to-end robotics framework for training autonomous navigation models using Behavioral Cloning in ROS and Gazebo. The pipeline records camera feeds paired with teleoperated expert controls, training a neural network to map vision inputs directly to real-time velocity and steering commands.",
+    image: "projec_imgs/imitation_learning_gazebo.gif",
+    technologies: ["ROS", "Gazebo", "Behavioral Cloning", "PyTorch", "Python", "Computer Vision"],
+    achievements: ["End-to-End ROS & Deep Learning Integration", "Data Collection via Teleoperation", "Open-Sourced on GitHub"],
+    link: "https://github.com/AbrarMahmud/imitation-learning-gazebo"
+  },
+  {
+    title: "RoboBootCamp: Hands-on ROS & Simulation Workshop (Day 5)",
+    description: "Interactive workshop curriculum and practical exercises designed for Day 5 of RoboBootCamp. Focused on introducing students and robotics enthusiasts to practical ROS workflows, robot simulation environments, state estimation, and sensor integration.",
+    image: "projec_imgs/robo_bootcamp.gif",
+    technologies: ["ROS", "Gazebo", "RViz", "Python", "C++", "Robotics Education"],
+    achievements: ["Hosted Live Workshop uder IRAB", "Hands-on Practical Simulation Exercises", "Open-Sourced Educational Resource"],
+    link: "https://github.com/AbrarMahmud/RoboBootCamp_Day5"
+  },
+  {
+    title: "RoboHack: ROS MoveIt Inverse Kinematics & Manipulation",
+    description: "A ROS and MoveIt motion planning project developed for RoboHack. Features inverse kinematics (IK) computations, obstacle-aware trajectory planning, and joint-space motion control for robotic arm manipulators inside simulated environments.",
+    image: "projec_imgs/RoboHack.gif",
+    technologies: ["ROS", "MoveIt", "Inverse Kinematics", "C++", "Python", "RViz"],
+    achievements: ["Robotics Hackathon Implementation", "Complex Motion Planning & Trajectory Execution", "Open-Sourced on GitHub"],
+    link: "https://github.com/AbrarMahmud/RoboHack_ROS_Moveit_iK"
+  },
+      {
       title: "Robotic Arm Manipulator Visualizer using Processing3",
       description: "A powerful tool for visualizing and comparing the solutions of robotic arm inverse kinematics (IK) using Processing3. This project allows users to input a Denavit-Hartenberg (DH) matrix table and visualize the solution path of the manipulator according to a given parametric path function. It also supports real-time Arduino integration.",
       image: "projec_imgs/6_DOF_arm.gif",
@@ -138,6 +210,15 @@ This LEGO EV3 project highlights creative problem solving and engineering by ach
       achievements: ["robotic kinematics and DH parameters", "Deployed in practical robots"],
       link: "https://github.com/AbrarMahmud/N_DOF_simulation"
     },
+    {
+      title: "Fire-Bot: FOMO-vision model based autonomous robot for fire detection and suppression",
+      description: "Fire-Bot is an autonomous firefighting robot that uses real-time image processing, stereoscopic cameras, and machine learning for fire detection. It features PID-controlled motion and IMU-based feedback for precise navigation, all powered by a low-power microcontroller, integrating robotics, control systems, and AI into a unified solution.",
+      image: "projec_imgs/Ai_FireBot.jpeg",
+      technologies: ["Computer Vision", "edge-impulse", "control-systems" , "esp32-arduino"],
+      achievements: ["Vision Models on Embedded Systems", "Stereoscopic Distance Estimation","Open-sourced on GitHub"],
+      link: "https://github.com/AbrarMahmud/Ai_FireBot"
+    },
+
     {
       title: "WiFi-RoverCam: ESP32-CAM Controlled RC Vehicle Over Local WiFi",
       description: "This project demonstrates a standalone WiFi-based RC vehicle system using the ESP32-CAM module. It serves a custom HTML-based camera interface over a local HTTP server without requiring internet access. The vehicle is controlled via a custom web page, and the control signals are relayed wirelessly to an Arduino Uno handling motor control.",
