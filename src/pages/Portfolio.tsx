@@ -21,68 +21,11 @@ interface Publication {
   hoverText: string;
 }
 
-// Google Scholar has no public API and doesn't send CORS headers, so the browser
-// can't fetch it directly. These public CORS proxies are tried in order.
-// For production, replace with your own proxy (e.g. a Cloudflare Worker) — see notes.
-const CORS_PROXIES: ((url: string) => string)[] = [
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-  (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-];
-
-const getScholarUserId = (profileUrl: string): string | null => {
-  try {
-    return new URL(profileUrl).searchParams.get('user');
-  } catch {
-    return null;
-  }
-};
-
-const parseScholarHtml = (html: string): Publication[] => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const rows = Array.from(doc.querySelectorAll('tr.gsc_a_tr'));
-
-  return rows.map((row) => {
-    const titleEl = row.querySelector('a.gsc_a_at');
-    const grays = row.querySelectorAll('div.gs_gray');
-    const href = titleEl?.getAttribute('href') ?? '';
-    const authors = grays[0]?.textContent?.trim() ?? '';
-    const venue = grays[1]?.textContent?.trim() ?? '';
-    const citationText = row.querySelector('.gsc_a_c a')?.textContent?.trim() ?? '';
-    const citations = parseInt(citationText, 10);
-
-    return {
-      title: titleEl?.textContent?.trim() ?? 'Untitled',
-      link: href.startsWith('http') ? href : `https://scholar.google.com${href}`,
-      venue,
-      year: row.querySelector('.gsc_a_y span')?.textContent?.trim() ?? '',
-      citations: Number.isNaN(citations) ? 0 : citations,
-      authors,
-      hoverText: [authors && `Authors: ${authors}`, venue && `Published in: ${venue}`]
-        .filter(Boolean)
-        .join('\n'),
-    };
-  });
-};
-
-const fetchScholarPublications = async (userId: string, signal: AbortSignal): Promise<Publication[]> => {
-  const target = `https://scholar.google.com/citations?user=${userId}&hl=en&cstart=0&pagesize=100&sortby=pubdate`;
-  let lastError: unknown = new Error('No proxy succeeded');
-
-  for (const buildUrl of CORS_PROXIES) {
-    try {
-      const res = await fetch(buildUrl(target), { signal });
-      if (!res.ok) throw new Error(`Proxy responded ${res.status}`);
-      const pubs = parseScholarHtml(await res.text());
-      if (pubs.length > 0) return pubs; // empty => blocked / captcha page, try next proxy
-      throw new Error('No publications found in response');
-    } catch (err) {
-      if ((err as Error)?.name === 'AbortError') throw err;
-      lastError = err;
-    }
-  }
-  throw lastError;
-};
+// publications.json is generated daily by .github/workflows/update-publications.yml
+// (scripts/fetch-scholar.mjs). Optional: set this to the raw GitHub URL so the site
+// always reads the newest committed file without needing a redeploy, e.g.
+// 'https://raw.githubusercontent.com/<user>/<repo>/main/public/publications.json'
+const PUBLICATIONS_REMOTE_URL ='https://raw.githubusercontent.com/abrarmahmud/kazi-abrar-mahmud/main/public/publications.json';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -97,12 +40,16 @@ function Portfolio() {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [pubStatus, setPubStatus] = useState<'loading' | 'live' | 'fallback'>('loading');
   const [showAllPublications, setShowAllPublications] = useState(false);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
-    const userId = getScholarUserId(portfolio.social.googleScholar);
+    const sources = [
+      PUBLICATIONS_REMOTE_URL,
+      `${import.meta.env.BASE_URL}publications.json`,
+    ].filter(Boolean);
 
-    const useFallback = () => {
+    const loadFallback = () => {
       setPublications(
         portfolio.research.map((r) => ({
           title: r.title,
@@ -117,21 +64,24 @@ function Portfolio() {
       setPubStatus('fallback');
     };
 
-    if (!userId) {
-      useFallback();
-      return () => controller.abort();
-    }
-
-    fetchScholarPublications(userId, controller.signal)
-      .then((pubs) => {
-        setPublications(pubs);
-        setPubStatus('live');
-      })
-      .catch((err) => {
-        if (err?.name === 'AbortError') return;
-        console.error('Google Scholar fetch failed:', err);
-        useFallback();
-      });
+    (async () => {
+      for (const url of sources) {
+        try {
+          const res = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (Array.isArray(data.publications) && data.publications.length > 0) {
+            setPublications(data.publications);
+            setUpdatedAt(data.updatedAt ?? null);
+            setPubStatus('live');
+            return;
+          }
+        } catch (err) {
+          if ((err as Error)?.name === 'AbortError') return;
+        }
+      }
+      loadFallback();
+    })();
 
     return () => controller.abort();
   }, []);
@@ -223,7 +173,7 @@ function Portfolio() {
           </div>
         </GlassCard>
 
-        {/* Research Publication Section — fetched live from Google Scholar on every page load */}
+        {/* Research Publication Section — synced daily from Google Scholar via GitHub Actions */}
         <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '200ms' }}>
           <div className="flex items-center gap-2 mb-6">
             <Flask className="text-gray-700" size={24} />
@@ -244,7 +194,7 @@ function Portfolio() {
 
           {pubStatus === 'fallback' && (
             <p className="text-sm text-amber-700 mb-4">
-              Couldn't reach Google Scholar right now — showing the saved list instead.
+              Publication list hasn't been synced from Google Scholar yet — showing the saved list.
             </p>
           )}
 
@@ -279,6 +229,12 @@ function Portfolio() {
             </div>
           )}
 
+          {pubStatus === 'live' && updatedAt && (
+            <p className="text-xs text-gray-400 mt-6 text-center">
+              Synced from Google Scholar on {new Date(updatedAt).toLocaleDateString()}
+            </p>
+          )}
+
           {pubStatus !== 'loading' && (
             <div className="mt-8 flex justify-center gap-4">
               {hasMorePublications && (
@@ -302,137 +258,6 @@ function Portfolio() {
             </div>
           )}
         </GlassCard>
-
-
-        {/* Blog Section */}
-        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
-          <div className="flex items-center gap-2 mb-6">
-            <YoutubeIcon className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Research Videos</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedVideos.map((blog) => (
-              <div
-                key={blog.id}
-                onClick={() => navigate(`/blog/${blog.id}`)}
-                className="group cursor-pointer"
-              >
-                <div className="relative overflow-hidden rounded-lg aspect-video mb-4">
-                  <img
-                    src={blog.thumbnail}
-                    alt={blog.title}
-                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
-                  {blog.title}
-                </h3>
-                <p className="text-gray-600">{blog.summary}</p>
-                <p className="text-gray-500 mt-2">{new Date(blog.date).toLocaleDateString()}</p>
-              </div>
-            ))}
-          </div>
-          {hasMoreVideos && (
-            <div className="mt-8 flex justify-center gap-4">
-              <button
-                onClick={() => setShowAllVideos(!showAllVideos)}
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                {showAllVideos ? 'Show Less' : 'Show More'}
-                <ArrowUpRight size={16} />
-              </button>
-              <a
-                href={portfolio.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                YouTube Channel
-                <Youtube size={16} />
-              </a>
-            </div>
-          )}
-        </GlassCard>
-
-        {/* Projects Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up mb-12" style={{ animationDelay: '400ms' }}>
-          <div className="col-span-full mb-6 flex items-center gap-2">
-            <Robot className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Projects</h2>
-          </div>
-          {displayedProjects.map((project, index) => (
-            <GlassCard 
-              key={project.title} 
-              className="group relative overflow-hidden h-[400px] transition-all duration-500 animate-bounce-slow"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${project.image})` }}
-              />
-              
-              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm transition-all duration-500 group-hover:backdrop-blur-none" />
-              
-              <div className="relative h-full p-6 flex flex-col justify-end transform transition-all duration-500">
-                <div className="bg-white/80 backdrop-blur-md p-4 rounded-lg transform transition-all duration-500 group-hover:-translate-y-full">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{project.title}</h3>
-                  <p className="text-gray-600 line-clamp-2">{project.description}</p>
-                </div>
-                
-                <div className="bg-black/70 backdrop-blur-md p-6 rounded-lg absolute bottom-0 left-0 right-0 transform translate-y-full transition-all duration-500 group-hover:translate-y-0">
-                  <h3 className="text-xl font-bold text-white mb-4">{project.title}</h3>
-                  <p className="text-gray-200 mb-4">{project.description}</p>
-                  <div className="mb-4">
-                    <h4 className="text-white font-semibold mb-2">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-sm text-white">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="mb-4">
-                    <h4 className="text-white font-semibold mb-2">Key Achievements:</h4>
-                    <ul className="list-disc list-inside text-gray-200">
-                      {project.achievements.map((achievement) => (
-                        <li key={achievement}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <a
-                    href={project.link}
-                    className="inline-flex items-center gap-1 text-white hover:text-indigo-200 transition-colors"
-                  >
-                    View Project
-                    <ArrowUpRight size={16} className="transform transition-transform group-hover:translate-x-1" />
-                  </a>
-                </div>
-              </div>
-            </GlassCard>
-          ))}
-          {hasMoreProjects && (
-            <div className="col-span-full mt-8 flex justify-center gap-4">
-              <button
-                onClick={() => setShowAllProjects(!showAllProjects)}
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                {showAllProjects ? 'Show Less' : 'Show More'}
-                <ArrowUpRight size={16} />
-              </button>
-              <a
-                href={portfolio.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                GitHub Profile
-                <Github size={16} />
-              </a>
-            </div>
-          )}
-        </div>
 
 
         {/* Research Experience Section */}
@@ -576,6 +401,137 @@ function Portfolio() {
             </div>
           )}
         </GlassCard>
+
+
+        {/* Blog Section */}
+        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
+          <div className="flex items-center gap-2 mb-6">
+            <YoutubeIcon className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">Latest Videos</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedVideos.map((blog) => (
+              <div
+                key={blog.id}
+                onClick={() => navigate(`/blog/${blog.id}`)}
+                className="group cursor-pointer"
+              >
+                <div className="relative overflow-hidden rounded-lg aspect-video mb-4">
+                  <img
+                    src={blog.thumbnail}
+                    alt={blog.title}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
+                  {blog.title}
+                </h3>
+                <p className="text-gray-600">{blog.summary}</p>
+                <p className="text-gray-500 mt-2">{new Date(blog.date).toLocaleDateString()}</p>
+              </div>
+            ))}
+          </div>
+          {hasMoreVideos && (
+            <div className="mt-8 flex justify-center gap-4">
+              <button
+                onClick={() => setShowAllVideos(!showAllVideos)}
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                {showAllVideos ? 'Show Less' : 'Show More'}
+                <ArrowUpRight size={16} />
+              </button>
+              <a
+                href={portfolio.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                YouTube Channel
+                <Youtube size={16} />
+              </a>
+            </div>
+          )}
+        </GlassCard>
+
+        {/* Projects Section */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up mb-12" style={{ animationDelay: '400ms' }}>
+          <div className="col-span-full mb-6 flex items-center gap-2">
+            <Robot className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">Research Projects</h2>
+          </div>
+          {displayedProjects.map((project, index) => (
+            <GlassCard 
+              key={project.title} 
+              className="group relative overflow-hidden h-[400px] transition-all duration-500 animate-bounce-slow"
+              style={{ animationDelay: `${index * 200}ms` }}
+            >
+              <div 
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{ backgroundImage: `url(${project.image})` }}
+              />
+              
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm transition-all duration-500 group-hover:backdrop-blur-none" />
+              
+              <div className="relative h-full p-6 flex flex-col justify-end transform transition-all duration-500">
+                <div className="bg-white/80 backdrop-blur-md p-4 rounded-lg transform transition-all duration-500 group-hover:-translate-y-full">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">{project.title}</h3>
+                  <p className="text-gray-600 line-clamp-2">{project.description}</p>
+                </div>
+                
+                <div className="bg-black/70 backdrop-blur-md p-6 rounded-lg absolute bottom-0 left-0 right-0 transform translate-y-full transition-all duration-500 group-hover:translate-y-0">
+                  <h3 className="text-xl font-bold text-white mb-4">{project.title}</h3>
+                  <p className="text-gray-200 mb-4">{project.description}</p>
+                  <div className="mb-4">
+                    <h4 className="text-white font-semibold mb-2">Technologies:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-sm text-white">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <h4 className="text-white font-semibold mb-2">Key Achievements:</h4>
+                    <ul className="list-disc list-inside text-gray-200">
+                      {project.achievements.map((achievement) => (
+                        <li key={achievement}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <a
+                    href={project.link}
+                    className="inline-flex items-center gap-1 text-white hover:text-indigo-200 transition-colors"
+                  >
+                    View Project
+                    <ArrowUpRight size={16} className="transform transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </div>
+            </GlassCard>
+          ))}
+          {hasMoreProjects && (
+            <div className="col-span-full mt-8 flex justify-center gap-4">
+              <button
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                {showAllProjects ? 'Show Less' : 'Show More'}
+                <ArrowUpRight size={16} />
+              </button>
+              <a
+                href={portfolio.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                GitHub Profile
+                <Github size={16} />
+              </a>
+            </div>
+          )}
+        </div>
 
         {/* Contact Section */}
         <GlassCard className="p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '450ms' }}>

@@ -1,0 +1,50 @@
+{
+  "updatedAt": "2026-09-29T17:57:40.435Z",
+  "publications": [
+    {
+      "title": "Bridging Thought and Action: Taming Long-Horizon Instability in Open-Source LLM Agents with a MetaTool-Enhanced ROS Framework",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:mB3voiENLucC",
+      "venue": "arXiv preprint arXiv:2609.13335, 2026",
+      "year": "2026",
+      "citations": 0,
+      "authors": "KA Mahmud, NK Dhurubo, T Kirttonia, SH Ujjal, MA Haque",
+      "hoverText": "Authors: KA Mahmud, NK Dhurubo, T Kirttonia, SH Ujjal, MA Haque\nPublished in: arXiv preprint arXiv:2609.13335, 2026"
+    },
+    {
+      "title": "MedPrompt: LLM–CNN Fusion with Weight Routing for Medical Image Segmentation and Classification",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:-f6ydRqryjwC",
+      "venue": "Biomedical Signal Processing and Control 113, 109251, 2026",
+      "year": "2026",
+      "citations": 5,
+      "authors": "S Sobhan, KA Mahmud, A Zami, M Ahmed, MP Uddin",
+      "hoverText": "Authors: S Sobhan, KA Mahmud, A Zami, M Ahmed, MP Uddin\nPublished in: Biomedical Signal Processing and Control 113, 109251, 2026"
+    },
+    {
+      "title": "Edge-Optimized Firefighting Robot: Autonomous Navigation via PID Control and Fire Detection with FOMO Vision",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:hFOr9nPyWt4C",
+      "venue": "2025 7th International Conference on Electrical Information and …, 2025",
+      "year": "2025",
+      "citations": 0,
+      "authors": "KA Mahmud, F Ahmed, R Siddiq, S Sobhan",
+      "hoverText": "Authors: KA Mahmud, F Ahmed, R Siddiq, S Sobhan\nPublished in: 2025 7th International Conference on Electrical Information and …, 2025"
+    },
+    {
+      "title": "We Made a Robot That Plays Chess With Us — Here’s How",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:hC7cP41nSMkC",
+      "venue": "Medium, 2023",
+      "year": "2023",
+      "citations": 0,
+      "authors": "K Abrar Mahmud, S Yousuf, U Sain",
+      "hoverText": "Authors: K Abrar Mahmud, S Yousuf, U Sain\nPublished in: Medium, 2023"
+    },
+    {
+      "title": "Voice Signal Transmission and Reception Using Amplitude Modulation",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:IWHjjKOFINEC",
+      "venue": "Research Gate, 2022",
+      "year": "2022",
+      "citations": 0,
+      "authors": "K Abrar Mahmud, A Fahim, S Sobhan",
+      "hoverText": "Authors: K Abrar Mahmud, A Fahim, S Sobhan\nPublished in: Research Gate, 2022"
+    }
+  ]
+}
