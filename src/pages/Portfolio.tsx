@@ -259,6 +259,158 @@ function Portfolio() {
           )}
         </GlassCard>
 
+        {/* Blog Section */}
+        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
+          <div className="flex items-center gap-2 mb-6">
+            <YoutubeIcon className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">Research Videos</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedVideos.map((blog) => (
+              <div
+                key={blog.id}
+                onClick={() => navigate(`/blog/${blog.id}`)}
+                className="group cursor-pointer"
+              >
+                <div className="relative overflow-hidden rounded-lg aspect-video mb-4">
+                  <img
+                    src={blog.thumbnail}
+                    alt={blog.title}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
+                  {blog.title}
+                </h3>
+                <p className="text-gray-600">{blog.summary}</p>
+                <p className="text-gray-500 mt-2">{new Date(blog.date).toLocaleDateString()}</p>
+              </div>
+            ))}
+          </div>
+          {hasMoreVideos && (
+            <div className="mt-8 flex justify-center gap-4">
+              <button
+                onClick={() => setShowAllVideos(!showAllVideos)}
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                {showAllVideos ? 'Show Less' : 'Show More'}
+                <ArrowUpRight size={16} />
+              </button>
+              <a
+                href={portfolio.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                YouTube Channel
+                <Youtube size={16} />
+              </a>
+            </div>
+          )}
+        </GlassCard>
+
+        {/* Projects Section */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up mb-12" style={{ animationDelay: '400ms' }}>
+          <div className="col-span-full mb-6 flex items-center gap-2">
+            <Robot className="text-gray-700" size={24} />
+            <h2 className="text-2xl font-bold text-gray-800">GitHub Projects</h2>
+          </div>
+          {displayedProjects.map((project, index) => (
+            <GlassCard 
+              key={project.title} 
+              className="group relative overflow-hidden h-[400px] transition-all duration-500 animate-bounce-slow"
+              style={{ animationDelay: `${index * 200}ms` }}
+            >
+              <div 
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{ backgroundImage: `url(${project.image})` }}
+              />
+              
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm transition-all duration-500 group-hover:backdrop-blur-none" />
+              
+              <div className="relative h-full p-6 flex flex-col justify-end transform transition-all duration-500">
+                <div className="bg-white/80 backdrop-blur-md p-4 rounded-lg transform transition-all duration-500 group-hover:-translate-y-full">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">{project.title}</h3>
+                  <p className="text-gray-600 line-clamp-2">{project.description}</p>
+                </div>
+                
+                <div className="bg-black/70 backdrop-blur-md p-6 rounded-lg absolute bottom-0 left-0 right-0 transform translate-y-full transition-all duration-500 group-hover:translate-y-0">
+                  <h3 className="text-xl font-bold text-white mb-4">{project.title}</h3>
+                  <p className="text-gray-200 mb-4">{project.description}</p>
+                  <div className="mb-4">
+                    <h4 className="text-white font-semibold mb-2">Technologies:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-sm text-white">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <h4 className="text-white font-semibold mb-2">Key Achievements:</h4>
+                    <ul className="list-disc list-inside text-gray-200">
+                      {project.achievements.map((achievement) => (
+                        <li key={achievement}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <a
+                    href={project.link}
+                    className="inline-flex items-center gap-1 text-white hover:text-indigo-200 transition-colors"
+                  >
+                    View Project
+                    <ArrowUpRight size={16} className="transform transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </div>
+            </GlassCard>
+          ))}
+          {hasMoreProjects && (
+            <div className="col-span-full mt-8 flex justify-center gap-4">
+              <button
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                {showAllProjects ? 'Show Less' : 'Show More'}
+                <ArrowUpRight size={16} />
+              </button>
+              <a
+                href={portfolio.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
+              >
+                GitHub Profile
+                <Github size={16} />
+              </a>
+            </div>
+          )}
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {/* Research Experience Section */}
         <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '200ms' }}>
@@ -402,136 +554,6 @@ function Portfolio() {
           )}
         </GlassCard>
 
-
-        {/* Blog Section */}
-        <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
-          <div className="flex items-center gap-2 mb-6">
-            <YoutubeIcon className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Latest Videos</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedVideos.map((blog) => (
-              <div
-                key={blog.id}
-                onClick={() => navigate(`/blog/${blog.id}`)}
-                className="group cursor-pointer"
-              >
-                <div className="relative overflow-hidden rounded-lg aspect-video mb-4">
-                  <img
-                    src={blog.thumbnail}
-                    alt={blog.title}
-                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
-                  {blog.title}
-                </h3>
-                <p className="text-gray-600">{blog.summary}</p>
-                <p className="text-gray-500 mt-2">{new Date(blog.date).toLocaleDateString()}</p>
-              </div>
-            ))}
-          </div>
-          {hasMoreVideos && (
-            <div className="mt-8 flex justify-center gap-4">
-              <button
-                onClick={() => setShowAllVideos(!showAllVideos)}
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                {showAllVideos ? 'Show Less' : 'Show More'}
-                <ArrowUpRight size={16} />
-              </button>
-              <a
-                href={portfolio.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                YouTube Channel
-                <Youtube size={16} />
-              </a>
-            </div>
-          )}
-        </GlassCard>
-
-        {/* Projects Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up mb-12" style={{ animationDelay: '400ms' }}>
-          <div className="col-span-full mb-6 flex items-center gap-2">
-            <Robot className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Research Projects</h2>
-          </div>
-          {displayedProjects.map((project, index) => (
-            <GlassCard 
-              key={project.title} 
-              className="group relative overflow-hidden h-[400px] transition-all duration-500 animate-bounce-slow"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${project.image})` }}
-              />
-              
-              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm transition-all duration-500 group-hover:backdrop-blur-none" />
-              
-              <div className="relative h-full p-6 flex flex-col justify-end transform transition-all duration-500">
-                <div className="bg-white/80 backdrop-blur-md p-4 rounded-lg transform transition-all duration-500 group-hover:-translate-y-full">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{project.title}</h3>
-                  <p className="text-gray-600 line-clamp-2">{project.description}</p>
-                </div>
-                
-                <div className="bg-black/70 backdrop-blur-md p-6 rounded-lg absolute bottom-0 left-0 right-0 transform translate-y-full transition-all duration-500 group-hover:translate-y-0">
-                  <h3 className="text-xl font-bold text-white mb-4">{project.title}</h3>
-                  <p className="text-gray-200 mb-4">{project.description}</p>
-                  <div className="mb-4">
-                    <h4 className="text-white font-semibold mb-2">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-sm text-white">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="mb-4">
-                    <h4 className="text-white font-semibold mb-2">Key Achievements:</h4>
-                    <ul className="list-disc list-inside text-gray-200">
-                      {project.achievements.map((achievement) => (
-                        <li key={achievement}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <a
-                    href={project.link}
-                    className="inline-flex items-center gap-1 text-white hover:text-indigo-200 transition-colors"
-                  >
-                    View Project
-                    <ArrowUpRight size={16} className="transform transition-transform group-hover:translate-x-1" />
-                  </a>
-                </div>
-              </div>
-            </GlassCard>
-          ))}
-          {hasMoreProjects && (
-            <div className="col-span-full mt-8 flex justify-center gap-4">
-              <button
-                onClick={() => setShowAllProjects(!showAllProjects)}
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                {showAllProjects ? 'Show Less' : 'Show More'}
-                <ArrowUpRight size={16} />
-              </button>
-              <a
-                href={portfolio.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black/5 backdrop-blur-lg px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-black/10 transition-all duration-300 text-gray-700"
-              >
-                GitHub Profile
-                <Github size={16} />
-              </a>
-            </div>
-          )}
-        </div>
 
         {/* Contact Section */}
         <GlassCard className="p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '450ms' }}>

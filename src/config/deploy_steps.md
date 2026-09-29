@@ -88,7 +88,14 @@ git pull --rebase
 git push
 
 ```
-# For local Deployment and Development
+# For local Deployment and Development (MUST FOR UPDATING SCHOLAR LIST)
+```bash
+npm install --no-save cheerio@1.0.0-rc.12
+
+$env:SCHOLAR_USER_ID="NixBC9MAAAAJ"
+node scripts/fetch-scholar.mjs
+```
+
 ```bash
 npm install vite --save-dev
 npx vite build
