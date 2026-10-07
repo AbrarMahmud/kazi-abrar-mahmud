@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T17:57:40.435Z",
+  "updatedAt": "2026-10-07T09:58:19.897Z",
   "publications": [
     {
       "title": "Bridging Thought and Action: Taming Long-Horizon Instability in Open-Source LLM Agents with a MetaTool-Enhanced ROS Framework",
@@ -24,7 +24,7 @@
       "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:hFOr9nPyWt4C",
       "venue": "2025 7th International Conference on Electrical Information and …, 2025",
       "year": "2025",
-      "citations": 0,
+      "citations": 1,
       "authors": "KA Mahmud, F Ahmed, R Siddiq, S Sobhan",
       "hoverText": "Authors: KA Mahmud, F Ahmed, R Siddiq, S Sobhan\nPublished in: 2025 7th International Conference on Electrical Information and …, 2025"
     },
