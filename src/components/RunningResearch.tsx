@@ -63,7 +63,7 @@ type Block =
 const EQM_SUMMARY: Block[] = [
   {
     t: 'p',
-    text: 'The original model follows the implicit-energy formulation of Equilibrium Matching (EqM), adapted from the EqM image-generation implementation to robot behavior cloning.',
+    text: 'This policy follows the implicit-energy formulation of Equilibrium Matching (EqM), adapted from the EqM image-generation implementation to robot behavior cloning.',
   },
   {
     t: 'p',
@@ -435,7 +435,7 @@ export default function RunningResearch() {
         <ResearchPanel
           title="Equilibrium Matching Policy"
           subtitle="Implicit-energy score field over noisy actions"
-          summaryTitle='Original EqM Model (ebm="none")'
+          summaryTitle='EqM Model (energy landscape = implicit)'
           summary={EQM_SUMMARY}
         >
           <img
