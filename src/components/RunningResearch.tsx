@@ -202,7 +202,7 @@ function useInView<T extends HTMLElement>() {
   return { ref, inView };
 }
 
-function useAnimatedProgress(active: boolean, duration = 1500) {
+function useAnimatedProgress(active: boolean, duration = 15000) {
   const [p, setP] = useState(0);
   useEffect(() => {
     if (!active) return;
@@ -232,7 +232,7 @@ function MiniDonut({
   highlight: boolean;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
-  const p = useAnimatedProgress(inView);
+  const p = useAnimatedProgress(inView,5000);
 
   const R = 38;
   const C = 2 * Math.PI * R;
@@ -328,7 +328,7 @@ function Pips({ level, active }: { level: number; active: boolean }) {
 /* ------------------------------------------------------------------ */
 function ModelComparison() {
   const { ref, inView } = useInView<HTMLDivElement>();
-  const p = useAnimatedProgress(inView, 1200);
+  const p = useAnimatedProgress(inView, 5000);
   const max = Math.max(...MODELS.map((m) => m.mb));
 
   return (
