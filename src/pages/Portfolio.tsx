@@ -4,6 +4,7 @@ import { Download, Github, Linkedin, Mail, Youtube, BookOpen, ArrowUpRight, Note
 import BackgroundAnimation from '../components/BackgroundAnimation';
 import GlassCard from '../components/GlassCard';
 import { portfolio } from '../config/portfolio';
+import RunningResearch from '../components/RunningResearch';
 
 const INITIAL_RESEARCH_COUNT = 3;
 const INITIAL_PROJECT_COUNT = 4;
@@ -151,6 +152,12 @@ function Portfolio() {
             </a>
           </div>
         </GlassCard>
+
+
+        {/* Running Research Section 
+          Put RunningResearch.tsx in src/components/.
+          In Portfolio.tsx, add the import and render it right after the hero card:*/}
+        <RunningResearch />
 
 
 

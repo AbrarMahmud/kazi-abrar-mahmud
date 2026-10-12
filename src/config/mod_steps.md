@@ -2,6 +2,11 @@
 
 This guide explains how to add new sections to the portfolio that follow the same structure as existing sections.
 
+
+## 0. For changing Running Research panel
+look inside /src/components
+A file name RunningResearch.tsx , modify it according to your need.
+
 ## 1. Add Data to Configuration
 
 First, add your new data to the `portfolio` object in `/src/config/portfolio.ts`. The new data should follow the same structure as existing sections.
