@@ -11,6 +11,7 @@ export const portfolio = {
     period: "July 2025 - Present",
     description: "Serving as a faculty member in the Department of Electrical and Electronic Engineering (EEE), delivering undergraduate coursework, leading student activities, and coordinating academic initiatives.",
     achievements: [
+      "Desined and developed a new lab: Numerical Analysis, with python based codeing modality for EEE students.",
       "Deliver engaging theoretical and hands-on lectures to undergraduate students.",
       "Serve as Moderator of the Electrical and Electronic Club, overseeing activities, projects, and student engagement.",
       "Coordinated the launch of Power Energy Training Academy (PETA) training programs focused on Industry 4.0 technologies."
@@ -66,7 +67,7 @@ export const portfolio = {
   
   blogs: [
     { 
-      id: "3",
+      id: "12",
       title: "Diffusion Policy Done Right: End-to-End Imitation Learning in ROS1-Gazebo",
       thumbnail: "https://img.youtube.com/vi/iT2fyZKa5s8/maxresdefault.jpg",
       videoUrl: "https://www.youtube.com/embed/iT2fyZKa5s8?si=J4sspQdzq-6nEKUq",
@@ -107,6 +108,244 @@ If you are a student transitioning from standard machine learning into applied r
 Head over to the [GitHub repository](https://github.com/AbrarMahmud/imitation-learning-gazebo) to clone the code, spin up the Gazebo world, and start teaching your virtual robot how to drive.
     `
     },
+    {
+      id: "11",
+      title: "Designing & Coding a Custom 6DOF Robotic Arm From Scratch! (Fusion360 + Arduino)",
+      thumbnail: "https://img.youtube.com/vi/aLEBEnKvmhI/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/aLEBEnKvmhI",
+      date: "2026-10-21",
+      summary: "My full workflow for solving analytical inverse kinematics and building a custom robot, from DH parameters to a working arm.",
+      content: `
+What does it take to design, calculate and build a robotic system from the ground up? This video walks through my entire workflow for **solving analytical inverse kinematics (IK)** and building a custom robot from scratch.
+
+## The four stages
+
+* **The math:** DH (Denavit-Hartenberg) parameters are used to derive the closed-form analytical IK solution
+* **The design:** custom 3D CAD design and fabrication in **Fusion 360**
+* **The software:** the kinematic results are visualised and the motion simulated in **Processing 5**
+* **The hardware:** the same math runs on the physical fabricated robot using an **Arduino Uno**
+
+## Why this workflow works
+
+Each stage checks the one before it. If the equations are wrong, the Processing simulation shows it immediately. If the simulation looks right but the robot misbehaves, the problem is in the mechanical design or the hardware, not the math. That separation makes debugging far easier.
+
+## Open source
+
+The Processing simulation code is available here: [N_DOF_simulation on GitHub](https://github.com/AbrarMahmud/N_DOF_simulation.git).
+
+Which part do you find most interesting: the math, the CAD, or the code?
+    `
+    },
+{
+      id: "10",
+      title: "I Built a DIY Force Feedback Steering Wheel with Arduino Leonardo! (Self-Centering PID Demo)",
+      thumbnail: "https://img.youtube.com/vi/UkbvZklW3iQ/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/UkbvZklW3iQ",
+      date: "2026-10-18",
+      summary: "A custom force-feedback steering wheel that uses a PID controller to mimic tire resistance and self-centering.",
+      content: `
+Sim racing feels real because the wheel *pushes back*. In this project I built my own **DIY force feedback (FFB) steering wheel** and used control theory to make that push feel natural.
+
+## How it works
+
+An **Arduino Leonardo** sits at the heart of the build. Its native USB HID support lets it talk directly to PC games as a game controller. On top of that, a **custom-coded PID controller** (Proportional-Integral-Derivative) continuously compares the wheel's position with the centre and generates a restoring torque.
+
+The result is the behaviour you expect from a real car:
+
+* **Active self-centering:** let go and the wheel snaps back smoothly
+* **Dynamic force response:** the harder you turn, the more resistance you feel, like real tire load
+
+## The control engineering angle
+
+PID is the same idea used in line-following robots, drones and motor controllers. Here the tuning decides whether the wheel feels heavy, floaty or jittery, which makes it a very tangible way to understand what each gain actually does.
+
+The video shows how smoothly it tracks and returns to centre under load.
+    `
+    },
+    {
+      id: "9",
+      title: "From RViz to Reality: ROS MoveIt! on a Custom 5-DOF Robotic Arm",
+      thumbnail: "https://img.youtube.com/vi/GbZTpitNsWM/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/GbZTpitNsWM",
+      date: "2026-10-20",
+      summary: "The complete MoveIt pipeline for a custom 5-DOF arm: Setup Assistant, RViz simulation, and real hardware execution.",
+      content: `
+A fast-paced walkthrough of the full pipeline for bringing a **custom 5-DOF robotic arm** under ROS and MoveIt, from configuration to real hardware.
+
+## The workflow
+
+1. **MoveIt Setup Assistant:** configure the arm's kinematics and planning groups
+2. **RViz:** simulate trajectory planning and check the motion before anything moves
+3. **Real hardware:** execute the inverse kinematics (IK) on the physical arm
+
+Going through simulation first means you can catch bad configurations in RViz instead of on the robot.
+
+## Origin
+
+This demonstration reflects the workflow taught during an **IEEE RAS workshop where I served as the Lead Instructor**. The idea was to give participants a complete path from an empty workspace to a moving arm.
+
+## Get the code
+
+The setup files, launch configurations and IK code are open-source: [RoboHack_ROS_Moveit_iK on GitHub](https://github.com/AbrarMahmud/RoboHack_ROS_Moveit_iK).
+    `
+    },
+    {
+      id: "8",
+      title: "I Built an Animated Humanoid Robot Head That Tracks Your Every Move",
+      thumbnail: "https://img.youtube.com/vi/bw7ItyD5RvM/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/bw7ItyD5RvM",
+      date: "2026-10-21",
+      summary: "A custom humanoid robotic head that uses face tracking to follow people in a lively, animated way, built on ROS.",
+      content: `
+A robot feels alive when it *looks at you*. This project is a **custom humanoid robotic head** that uses **face tracking** to follow human movement with expressive, animated behaviour.
+
+## What the video covers
+
+* **Live demonstration** of the robot tracking a person in real time
+* **Face animation workflow:** a short, behind-the-scenes look at how the facial animations were created
+* **ROS architecture:** a structural overview of the workspace powering the head's vision and movement
+
+## Why share the workspace
+
+Seeing how a ROS workspace is organised is often more useful than seeing the demo itself. The video walks through the codebase so you can understand how perception and motion nodes fit together, and then adapt it for your own robot.
+
+## Build it yourself
+
+The entire ROS workspace is open-source: [robo_face_tracker on GitHub](https://github.com/AbrarMahmud/robo_face_tracker.git).
+    `
+    },
+   {
+      id: "7",
+      title: "Building a Custom ROS Robot: Testing Autonomous Navigation (move_base + ESP32)",
+      thumbnail: "https://img.youtube.com/vi/wNz_-tCpsQU/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/wNz_-tCpsQU",
+      date: "2026-10-19",
+      summary: "Putting the ROS Navigation Stack to the test on a robot I designed from scratch, with a custom ESP32 motor controller.",
+      content: `
+How well does the ROS Navigation Stack work on a robot you designed yourself? This video tests **autonomous navigation with move_base** on a fully custom-built platform.
+
+## System architecture
+
+* **High-level brain:** all ROS nodes, including move_base, run on a Linux laptop
+* **Low-level control:** a custom-designed **ESP32-based motor controller**
+* **Communication:** velocity commands and data stream back and forth through **rosserial** over a serial connection
+
+## From CAD to costmap
+
+The robot was modeled from scratch in **Autodesk Fusion 360**, and the **URDF was generated directly from the Fusion 360 design**. That single model supplies the joint states and also the footprint parameters move_base needs for planning around obstacles, so the physical robot and the software stay in sync.
+
+## What to watch for
+
+The video focuses on the robot's path planning and navigation behaviour in practice, which is where a design either holds up or shows its weak points. If you want to build something similar, the ESP32 + rosserial split is a lightweight way to get real hardware under ROS.
+    `
+    },
+    {
+      id: "6",
+      title: "I Built a Custom AM Radio Transmitter with a 1:1 Veroboard PCB Layout!",
+      thumbnail: "https://img.youtube.com/vi/cv9XeXgPsO0/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/cv9XeXgPsO0",
+      date: "2026-10-19",
+      summary: "A homemade AM transmitter and receiver, with a PCB designed in Eagle to map 1:1 onto a standard Veroboard.",
+      content: `
+Not every project is a robot. This one is a **custom Amplitude Modulation (AM) transmitter and receiver**, designed, built and tested from scratch for wireless signal transmission.
+
+## The 1:1 Veroboard trick
+
+The PCB was designed in **Autodesk Eagle** with a layout aligned to a standard **Veroboard / perfboard** grid (0.1 inch / 2.54 mm pitch). Because the design maps one-to-one onto the stripboard, component placement and trace routing transfer to the physical board almost without guesswork. It bridges proper PCB design and easy hand prototyping.
+
+## Highlights
+
+* Wireless **AM RF transmission** and audio modulation
+* **1:1 matrix mapping** in Eagle for direct Veroboard transfer
+* Live performance testing with a **radio receiver and an oscilloscope**
+
+## Tools used
+
+Autodesk Eagle for schematic and layout, Veroboard, and a digital storage oscilloscope with a function generator for checking the signal.
+
+Seeing the modulated waveform on the scope while hearing it on the receiver is a great way to make communication theory feel real.
+    `
+    },
+    {
+      id: "5",
+      title: "I Controlled a Custom Humanoid Arm with ROS & Pi 5",
+      thumbnail: "https://img.youtube.com/vi/c_kv290j9nA/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/c_kv290j9nA",
+      date: "2026-10-20",
+      summary: "A proof-of-concept demo: real-time control of a single-side humanoid arm using ROS, MoveIt and a Raspberry Pi 5.",
+      content: `
+This is a progress update on a **custom humanoid robot arm prototype**, showing real-time control of a single-side arm with a **Raspberry Pi 5** acting as the onboard brain.
+
+## The setup
+
+* **Compute:** Raspberry Pi 5 on the robot
+* **Framework:** ROS (Robot Operating System)
+* **Motion planning:** MoveIt solvers and kinematics
+* **Interface:** SSH remote control
+
+Everything you see, from motion planning to execution, is driven by ROS and MoveIt. Running the stack on the Pi means the arm doesn't depend on an external computer for its intelligence.
+
+## Where it's heading
+
+This is a proof-of-concept test rather than a finished product. It is a stepping stone toward more advanced autonomous capabilities for the hardware, and it fits into my broader interest in embodied AI, where good hardware and good control software have to grow together.
+    `
+    },
+
+
+    {
+      id: "4",
+      title: "DIY Cardboard 5 DOF robotic arm",
+      thumbnail: "https://img.youtube.com/vi/vEUU0YJDqW8/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/vEUU0YJDqW8",
+      date: "2026-10-18",
+      summary: "A fast, precise pick-and-place arm built from nothing but cardboard, servos and an Arduino Uno.",
+      content: `
+You don't need an expensive aluminium frame to learn serious robotics. This build is a fully working **5-DOF robotic arm made out of cardboard**, and it still performs a quick, precise pick-and-place with smooth multi-axis motion.
+
+## What's inside
+
+* **Brain:** Arduino Uno
+* **Servo driver:** 16-channel PCA9685 PWM controller, so all joints are driven cleanly from one board
+* **Actuators:** MG996R high-torque servos for lifting and joint articulation
+* **Five axes:** base rotation, shoulder, elbow, wrist pitch and gripper
+* **Frame:** lightweight but sturdy DIY cardboard
+
+## Why it matters
+
+A cheap, disposable frame lets students and hobbyists experiment with kinematics, servo control and motion sequencing without worrying about breaking expensive parts. It is also the starting point for the more advanced arms I build later with inverse kinematics and ROS MoveIt.
+
+Watch the full demo above, and if you build your own version, I'd love to hear how it turns out.
+    `
+    },
+    
+    {
+      id: "3",
+      title: "Arduino 2-DOF Planar Robot Arm (MG996R) | Drawing a Lissajous Figure",
+      thumbnail: "https://img.youtube.com/vi/74dQP6MFEEc/maxresdefault.jpg",
+      videoUrl: "https://www.youtube.com/embed/74dQP6MFEEc",
+      date: "2026-10-19",
+      summary: "A two-link Arduino arm that draws a figure-of-eight, simulated first in Processing 5 and then run on real hardware.",
+      content: `
+This is a classic first step into robot kinematics: a **2-DOF planar arm** built with MG996R servos and controlled by an Arduino, programmed to draw a continuous **Lissajous figure** (a figure of 8).
+
+## Simulate first, build second
+
+Before touching the hardware, the kinematics and the trajectory were simulated with a custom **Processing 5** script. Once the motion looked right on screen, the same math was ported to the physical arm. Testing in simulation first saves servos, time and a lot of frustration.
+
+## The trajectory
+
+The drawing path comes from **Lissajous parametric functions**: two sinusoids with different frequencies produce the smooth looping curve. At every step, inverse kinematics converts the desired pen position into the two joint angles the servos need to reach.
+
+## Where this came from
+
+This project was developed and showcased as part of a non-credit robotics course I instructed on behalf of **BUET IRAb**.
+
+The simulation, Arduino code and project files are open-source: [RoboBootCamp_Day4 on GitHub](https://github.com/AbrarMahmud/RoboBootCamp_Day4.git).
+    `
+    },
+ 
+
+    
     { 
       id: "2",
       title: "Advance ev3 robotic arm",

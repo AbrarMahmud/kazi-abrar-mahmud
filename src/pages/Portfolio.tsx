@@ -8,7 +8,7 @@ import RunningResearch from '../components/RunningResearch';
 
 const INITIAL_RESEARCH_COUNT = 3;
 const INITIAL_PROJECT_COUNT = 4;
-const INITIAL_VIDEO_COUNT = 3;
+const INITIAL_VIDEO_COUNT = 4;
 
 const INITIAL_ARTICLES_COUNT = 3;
 
@@ -238,7 +238,7 @@ function Portfolio() {
 
           {pubStatus === 'live' && updatedAt && (
             <p className="text-xs text-gray-400 mt-6 text-center">
-              Synced from Google Scholar on {new Date(updatedAt).toLocaleDateString()}
+              Auto Synced from Google Scholar on {new Date(updatedAt).toLocaleDateString()}
             </p>
           )}
 
@@ -270,7 +270,7 @@ function Portfolio() {
         <GlassCard className="mb-12 p-8 animate-slide-up animate-bounce-slow" style={{ animationDelay: '300ms' }}>
           <div className="flex items-center gap-2 mb-6">
             <YoutubeIcon className="text-gray-700" size={24} />
-            <h2 className="text-2xl font-bold text-gray-800">Research Videos</h2>
+            <h2 className="text-2xl font-bold text-gray-800">Research/Project Videos</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedVideos.map((blog) => (

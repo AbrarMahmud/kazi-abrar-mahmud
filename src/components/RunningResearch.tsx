@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Microscope } from 'lucide-react';
 import GlassCard from './GlassCard';
+import { portfolio } from '../config/portfolio';
 
 /* ------------------------------------------------------------------ */
 /*  CONFIG – edit these to match your files / numbers                  */
@@ -15,6 +16,15 @@ const KWELL_GIFS = [
   `${BASE}projec_imgs/sim_run_1.gif`,
   `${BASE}projec_imgs/sim_run_2.gif`,
 ];
+
+const CAPSTONE_IMGS = [
+  `${BASE}projec_imgs/CP_drone_poster.jpg`,
+  `${BASE}projec_imgs/CP_drone_demo.gif`,
+];
+const CAPSTONE_STUDENTS = ['Ashiqur Rahman', 'Md Ziauddin Bablu', 'Md Mahafuzar Rahman'];
+const CAPSTONE_CO_MENTOR = 'Dr. Sadid Muneer';
+const CAPSTONE_UNIVERSITY = 'United International University (UIU)';
+const CAPSTONE_TAGS = ['3D-printed frame', 'X → I morphing', 'Raspberry Pi 4', 'LLC-based control'];
 
 // Success rates on AlohaTransferCube-v0 (LeRobot eval)
 const EVAL_CAPTION = 'LeRobot Eval · AlohaTransferCube-v0 · Policy: Equilibrium Matching (EqM)';
@@ -150,6 +160,36 @@ const KWELL_SUMMARY: Block[] = [
     t: 'p',
     text: 'The current implementation treats these as OOD-related diagnostic signals rather than a guaranteed probability or likelihood. The negative-energy signal is explicitly described in the code as a confidence-related quantity, not a true data likelihood.',
   },
+];
+
+const CAPSTONE_SUMMARY: Block[] = [
+  {
+    t: 'p',
+    text: 'Conventional drones have fixed structures that limit their operation in narrow and complex environments. This capstone project presents an autonomous morphing drone that changes its arm configuration during flight, from an X shape to an I shape, to improve maneuverability, stability, and obstacle avoidance.',
+  },
+  {
+    t: 'p',
+    text: 'The students designed and 3D-printed the frame, built the drone, and programmed it end to end. A Raspberry Pi 4 runs an LLC-based control technique that updates the control parameters for each shape, so the drone can morph as the situation demands.',
+  },
+  {
+    t: 'p',
+    text: 'Objectives:',
+  },
+  {
+    t: 'ul',
+    items: [
+      'Design and develop a drone capable of changing its arm configuration during flight',
+      'Improve maneuverability and obstacle avoidance through in-flight morphing',
+      "Evaluate the drone's flight performance and stability in morphing configurations",
+      'Develop a real-time control and monitoring system enabling shape and PID adjustments',
+    ],
+  },
+  // { t: 'p', text: 'Students:' },
+  // { t: 'ul', items: CAPSTONE_STUDENTS },
+  // { t: 'p', text: 'Co-Supervisor:' },
+  // { t: 'ul', items: [portfolio.name] },
+  // { t: 'p', text: 'Co-Supervisor:' },
+  // { t: 'ul', items: [CAPSTONE_CO_MENTOR] },
 ];
 
 function SummaryBlocks({ blocks }: { blocks: Block[] }) {
@@ -481,6 +521,62 @@ export default function RunningResearch() {
             ))}
           </div>
         </ResearchPanel>
+
+        {/* Panel 3 – supervised student capstone (full width) */}
+        <div className="lg:col-span-2">
+          <ResearchPanel
+            title="Student Capstone: Morphing Drone"
+            subtitle="Supervised capstone project · in-flight shape morphing from X to I"
+            summaryTitle="Autonomous Morphing Drone (Capstone Project)"
+            summary={CAPSTONE_SUMMARY}
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+              {CAPSTONE_IMGS.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt="Morphing drone capstone project"
+                  loading="lazy"
+                  className="w-full rounded-lg bg-black/5 object-cover aspect-[3/4]"
+                />
+              ))}
+
+              {/* Info tile: supervisor, university, students */}
+              <div className="col-span-2 sm:col-span-1 rounded-lg bg-black/5 p-4 flex flex-col justify-center gap-3 text-sm text-gray-700">
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-gray-400">University</p>
+                  <p className="font-semibold text-gray-800">{CAPSTONE_UNIVERSITY}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-gray-400">Co-Supervisor</p>
+                  <p className="font-semibold text-gray-800">{portfolio.name}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-gray-400">Co-Supervisor</p>
+                  <p className="font-semibold text-gray-800">{CAPSTONE_CO_MENTOR}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-gray-400">Students</p>
+                  <ul className="space-y-0.5">
+                    {CAPSTONE_STUDENTS.map((n) => (
+                      <li key={n}>{n}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 mt-5">
+              {CAPSTONE_TAGS.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full bg-black/5 text-xs text-gray-700"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </ResearchPanel>
+        </div>
       </div>
     </GlassCard>
   );
