@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T08:17:05.299Z",
+  "updatedAt": "2026-10-26T08:36:59.989Z",
   "publications": [
     {
       "title": "Bridging Thought and Action: Taming Long-Horizon Instability in Open-Source LLM Agents with a MetaTool-Enhanced ROS Framework",
@@ -36,15 +36,6 @@
       "citations": 0,
       "authors": "K Abrar Mahmud, S Yousuf, U Sain",
       "hoverText": "Authors: K Abrar Mahmud, S Yousuf, U Sain\nPublished in: Medium, 2023"
-    },
-    {
-      "title": "Voice Signal Transmission and Reception Using Amplitude Modulation",
-      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:IWHjjKOFINEC",
-      "venue": "Research Gate, 2022",
-      "year": "2022",
-      "citations": 0,
-      "authors": "K Abrar Mahmud, A Fahim, S Sobhan",
-      "hoverText": "Authors: K Abrar Mahmud, A Fahim, S Sobhan\nPublished in: Research Gate, 2022"
     }
   ]
 }
