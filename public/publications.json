@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T08:36:59.989Z",
+  "updatedAt": "2026-10-31T09:22:14.748Z",
   "publications": [
     {
       "title": "Bridging Thought and Action: Taming Long-Horizon Instability in Open-Source LLM Agents with a MetaTool-Enhanced ROS Framework",
@@ -15,7 +15,7 @@
       "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=NixBC9MAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=NixBC9MAAAAJ:-f6ydRqryjwC",
       "venue": "Biomedical Signal Processing and Control 113, 109251, 2026",
       "year": "2026",
-      "citations": 5,
+      "citations": 6,
       "authors": "S Sobhan, KA Mahmud, A Zami, M Ahmed, MP Uddin",
       "hoverText": "Authors: S Sobhan, KA Mahmud, A Zami, M Ahmed, MP Uddin\nPublished in: Biomedical Signal Processing and Control 113, 109251, 2026"
     },
